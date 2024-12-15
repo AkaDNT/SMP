@@ -1,3 +1,5 @@
+using Application.Activities;
+using Application.Mapper;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -9,9 +11,23 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<DatabaseContext>(opt => {
+// Db
+builder.Services.AddDbContext<DatabaseContext>(opt =>
+{
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+// Cors
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+    });
+});
+
+// MediateR
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(List.Handler).Assembly));
+builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
 var app = builder.Build();
 
@@ -21,6 +37,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 
