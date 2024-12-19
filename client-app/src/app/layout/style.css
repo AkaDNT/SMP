@@ -1,0 +1,9 @@
+body {
+  background-color: #dee2e6 !important;
+}
+.ui.inverted.top.fixed.menu {
+  background: linear-gradient(135deg, darkblue, lightblue, #96f2d7) !important;
+}
+.activities {
+  margin-top: 7em;
+}
