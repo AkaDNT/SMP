@@ -13,10 +13,15 @@ import {
 import { Activity } from "../../../app/models/Activity";
 
 interface Props {
-  activity: Activity;
+  activity: Activity | undefined;
+  CancleSelectActivity: () => void;
 }
 
-export default function ActivityDetails({ activity }: Props) {
+export default function ActivityDetails({
+  activity,
+  CancleSelectActivity,
+}: Props) {
+  if (!activity) return;
   return (
     <Segment>
       <Card fluid>
@@ -42,7 +47,7 @@ export default function ActivityDetails({ activity }: Props) {
                 </Button>
               </GridColumn>
               <GridColumn textAlign="center">
-                <Button fluid color="facebook">
+                <Button onClick={CancleSelectActivity} fluid color="facebook">
                   Cancle
                 </Button>
               </GridColumn>

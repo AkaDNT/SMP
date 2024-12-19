@@ -6,18 +6,32 @@ import ActivityForm from "./ActivityForm";
 
 interface Props {
   activities: Activity[];
+  ViewSelectActivity: (id: string) => void;
+  selectedActivity: Activity | undefined;
+  CancleSelectActivity: () => void;
 }
 
-export default function ActivityDashboard({ activities }: Props) {
+export default function ActivityDashboard({
+  activities,
+  ViewSelectActivity,
+  selectedActivity,
+  CancleSelectActivity,
+}: Props) {
   return (
     <>
       <Grid celled columns={"equal"}>
         <GridColumn width={10}>
-          <ActivitiesList activities={activities}></ActivitiesList>
+          <ActivitiesList
+            ViewSelectActivity={ViewSelectActivity}
+            activities={activities}
+          ></ActivitiesList>
         </GridColumn>
         <GridColumn width={6}>
-          {activities[0] && (
-            <ActivityDetails activity={activities[0]}></ActivityDetails>
+          {selectedActivity && (
+            <ActivityDetails
+              CancleSelectActivity={CancleSelectActivity}
+              activity={selectedActivity}
+            ></ActivityDetails>
           )}
           <ActivityForm></ActivityForm>
         </GridColumn>
