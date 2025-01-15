@@ -15,11 +15,13 @@ import { Activity } from "../../../app/models/Activity";
 interface Props {
   activities: Activity[];
   ViewSelectActivity: (id: string) => void;
+  HandleCloseForm: () => void;
 }
 
 export default function ActivitiesList({
   activities,
   ViewSelectActivity,
+  HandleCloseForm,
 }: Props) {
   return (
     <Segment>
@@ -37,7 +39,10 @@ export default function ActivitiesList({
               <ItemExtra>
                 <Label>{activity.category}</Label>
                 <Button
-                  onClick={() => ViewSelectActivity(activity.id)}
+                  onClick={() => {
+                    ViewSelectActivity(activity.id);
+                    HandleCloseForm();
+                  }}
                   floated="right"
                   color="facebook"
                 >

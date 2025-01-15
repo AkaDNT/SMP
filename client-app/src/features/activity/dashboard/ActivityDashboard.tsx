@@ -9,6 +9,10 @@ interface Props {
   ViewSelectActivity: (id: string) => void;
   selectedActivity: Activity | undefined;
   CancleSelectActivity: () => void;
+  openForm: boolean;
+  HandleCloseForm: () => void;
+  HandleOpenForm: () => void;
+  SubmitForm: (activity: Activity) => void;
 }
 
 export default function ActivityDashboard({
@@ -16,14 +20,19 @@ export default function ActivityDashboard({
   ViewSelectActivity,
   selectedActivity,
   CancleSelectActivity,
+  openForm,
+  HandleCloseForm,
+  HandleOpenForm,
+  SubmitForm,
 }: Props) {
   return (
     <>
-      <Grid celled columns={"equal"}>
+      <Grid columns={"equal"}>
         <GridColumn width={10}>
           <ActivitiesList
             ViewSelectActivity={ViewSelectActivity}
             activities={activities}
+            HandleCloseForm={HandleCloseForm}
           ></ActivitiesList>
         </GridColumn>
         <GridColumn width={6}>
@@ -31,9 +40,17 @@ export default function ActivityDashboard({
             <ActivityDetails
               CancleSelectActivity={CancleSelectActivity}
               activity={selectedActivity}
+              HandleCloseForm={HandleCloseForm}
+              HandleOpenForm={HandleOpenForm}
             ></ActivityDetails>
           )}
-          <ActivityForm></ActivityForm>
+          {openForm && (
+            <ActivityForm
+              selectedActivity={selectedActivity}
+              HandleCloseForm={HandleCloseForm}
+              SubmitForm={SubmitForm}
+            ></ActivityForm>
+          )}
         </GridColumn>
       </Grid>
     </>

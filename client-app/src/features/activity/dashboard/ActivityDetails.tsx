@@ -15,11 +15,15 @@ import { Activity } from "../../../app/models/Activity";
 interface Props {
   activity: Activity | undefined;
   CancleSelectActivity: () => void;
+  HandleOpenForm: () => void;
+  HandleCloseForm: () => void;
 }
 
 export default function ActivityDetails({
   activity,
   CancleSelectActivity,
+  HandleOpenForm,
+  HandleCloseForm,
 }: Props) {
   if (!activity) return;
   return (
@@ -42,12 +46,19 @@ export default function ActivityDetails({
           <a>
             <Grid columns={2} divided>
               <GridColumn textAlign="center">
-                <Button fluid color="facebook">
+                <Button onClick={HandleOpenForm} fluid color="facebook">
                   Edit
                 </Button>
               </GridColumn>
               <GridColumn textAlign="center">
-                <Button onClick={CancleSelectActivity} fluid color="facebook">
+                <Button
+                  onClick={() => {
+                    CancleSelectActivity();
+                    HandleCloseForm();
+                  }}
+                  fluid
+                  color="facebook"
+                >
                   Cancle
                 </Button>
               </GridColumn>
