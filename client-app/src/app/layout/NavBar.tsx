@@ -1,4 +1,5 @@
 import { Button, Container, Menu } from "semantic-ui-react";
+import Logo from "./Logo";
 
 interface Props {
   HandleOpenForm: () => void;
@@ -13,8 +14,7 @@ export default function NavBar({
     <Menu inverted fixed="top">
       <Container>
         <Menu.Item>
-          <img src="/assets/logo.png" alt="logo" />
-          Reactivities
+          <Logo></Logo>
         </Menu.Item>
         <Menu.Item>Activities</Menu.Item>
         <Menu.Item>
