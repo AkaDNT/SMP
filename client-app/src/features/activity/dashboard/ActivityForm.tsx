@@ -34,8 +34,8 @@ export default function ActivityForm({
     <Segment clearing>
       <Form
         onSubmit={() => {
-          console.log(holderActivity);
           SubmitForm(holderActivity);
+          console.log(holderActivity);
           HandleCloseForm();
         }}
       >
@@ -51,6 +51,7 @@ export default function ActivityForm({
           <input
             placeholder="Date"
             name="date"
+            type="date"
             value={holderActivity.date}
             onChange={ChangeEventHandler}
           />

@@ -14,8 +14,13 @@ function App() {
   >(undefined);
   const [openForm, setOpenForm] = useState(false);
   useEffect(() => {
-    agent.Activities.list().then((response) => setActivities(response));
-  }, []);
+    agent.Activities.list().then((response) => {
+      response.forEach(
+        (activity) => (activity.date = activity.date.split("T")[0])
+      );
+      setActivities(response);
+    });
+  }, [activities]);
   function ViewSelectActivity(id: string) {
     setSelectedActivity(activities.find((x) => x.id === id));
   }
@@ -31,10 +36,14 @@ function App() {
   function SubmitForm(activity: Activity) {
     if (!activity.id) {
       activity.id = uuid();
+      console.log(activity);
+      agent.Activities.create(activity);
       setActivities([...activities, activity]);
     } else {
+      agent.Activities.patch(activity.id, activity);
       const newActivities = activities.filter((act) => act.id != activity.id);
       setActivities([...newActivities, activity]);
+      location.reload();
     }
   }
   return (

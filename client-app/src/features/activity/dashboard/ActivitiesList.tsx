@@ -11,6 +11,7 @@ import {
   Segment,
 } from "semantic-ui-react";
 import { Activity } from "../../../app/models/Activity";
+import agent from "../../../api/agent";
 
 interface Props {
   activities: Activity[];
@@ -47,6 +48,15 @@ export default function ActivitiesList({
                   color="facebook"
                 >
                   View
+                </Button>
+                <Button
+                  onClick={() => {
+                    agent.Activities.delete(activity.id);
+                  }}
+                  floated="right"
+                  color="youtube"
+                >
+                  Delete
                 </Button>
               </ItemExtra>
             </ItemContent>
