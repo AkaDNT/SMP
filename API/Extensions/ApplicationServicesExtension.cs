@@ -1,5 +1,6 @@
 using Application.Activities;
 using Application.Mapper;
+using Domain;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -9,9 +10,6 @@ namespace API.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
             // Db
             services.AddDbContext<DatabaseContext>(opt =>
             {
@@ -31,6 +29,10 @@ namespace API.Extensions
 
             // Auto Mapper
             services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+
+            //Identity
+            services.AddIdentityApiEndpoints<User>(opt => { opt.User.RequireUniqueEmail = true; }).AddRoles<Role>().AddEntityFrameworkStores<DatabaseContext>();
+
             return services;
         }
     }

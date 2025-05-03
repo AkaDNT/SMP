@@ -6,8 +6,12 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Persistence
 {
-    public class DatabaseContext(DbContextOptions options) : IdentityDbContext<User>(options)
+    public class DatabaseContext : IdentityDbContext<User, Role, Guid>
     {
+        public DatabaseContext(DbContextOptions options) : base(options)
+        {
+
+        }
         public DbSet<Activity> Activities { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 using API.Extensions;
+using Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,17 +13,17 @@ builder.Services.AddApplicationServices(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
 
 app.UseCors("CorsPolicy");
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
+
+app.MapGroup("api").MapIdentityApi<User>();
 
 app.MapControllers();
 
